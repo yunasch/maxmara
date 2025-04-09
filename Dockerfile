@@ -8,6 +8,8 @@ CMD ["pkill -f odoo"]
 
 ENV ODOO_VERSION=${ODOO_VERSION}
 ENV BRANCH=${BRANCH}
+ENV SSH_DIR=/root/.ssh
+ENV BASE_DIR="BDR"
 
 RUN if [ "$ODOO_VERSION" = "odoo:<odoo_base_tag>" ]; then \
     apt-get update -y; \
