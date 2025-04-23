@@ -17,7 +17,7 @@ steps:
       message: >
         _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
       
-        ## 🦊 __**<ODOO_VERSION> - <NAME>**__
+        ## 🦊 __**O17E - MaxMara**__
         
         🚀 Deploying **{{commit.branch}}** branch to production...
 
@@ -34,23 +34,23 @@ steps:
       message: >
         _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
         
-        ## 🦊 __**<ODOO_VERSION> - <NAME>**__
+        ## 🦊 __**O17E - MaxMara**__
         
         🔄 Deploying changes from **{{commit.branch}}** on test image...
 
-  - name: ssh-key
-    image: alpine
-    pull: always
-    environment:
-      SSH_FAST_API:
-        from_secret: ssh_fast_api
-    commands:
-      - echo "Generating ssh key..."
-      - mkdir -p /drone/src/.ssh
-      # Add as many as you need
-      - echo "$${SSH_FAST_API}" | tr -d '\r' > /drone/src/.ssh/id_<module_name>
+#  - name: ssh-key
+#    image: alpine
+#    pull: always
+#    environment:
+#      SSH_FAST_API:
+#        from_secret: ssh_fast_api
+#    commands:
+#      - echo "Generating ssh key..."
+#      - mkdir -p /drone/src/.ssh
+#      # Add as many as you need
+#      - echo "$${SSH_FAST_API}" | tr -d '\r' > /drone/src/.ssh/id_<module_name>
 
-  - name: publish-o-<name>
+  - name: publish-o-maxmara
     image: plugins/docker
     when:
       branch: [16.0, 17.0, 18.0, main, master]
@@ -62,14 +62,14 @@ steps:
         from_secret: reg_bdr_user
       password:
         from_secret: reg_bdr_password
-      repo: reg.bdr.group/<name>
-      tags: <tag>
+      repo: reg.bdr.group/maxmara
+      tags: 17
       dockerfile: Dockerfile
       build_args:
-        - ODOO_VERSION=reg.bdr.group/<name>:<tag>
+#        - ODOO_VERSION=reg.bdr.group/maxmara:17
         - BRANCH=${DRONE_BRANCH}
 
-  - name: publish-o-<name>-test
+  - name: publish-o-maxmara-test
     image: plugins/docker
     when:
       branch:
@@ -82,11 +82,11 @@ steps:
         from_secret: reg_bdr_user
       password:
         from_secret: reg_bdr_password
-      repo: reg.bdr.group/<name>
+      repo: reg.bdr.group/maxmara
       tags: test
       dockerfile: Dockerfile
       build_args:
-        - ODOO_VERSION=reg.bdr.group/<name>:<tag>
+        - ODOO_VERSION=reg.bdr.group/maxmara:17
         - BRANCH=${DRONE_BRANCH}
 
   - name: image_update Production Server
@@ -95,32 +95,32 @@ steps:
       branch: [16.0, 17.0, 18.0, main, master]
     settings:
       host:
-        - 172.30.1.XX
+        - 172.30.1.30
       username:
         from_secret: ssh_username
-      password:
-        from_secret: ssh_password
+      key:
+        from_secret: ssh_private_key
       port: 22
       command_timeout: 10m
       script:
         - ./image_update.sh
 
-  - name: image_update Test Server
-    image: appleboy/drone-ssh
-    when:
-      branch:
-        exclude: [16.0, 17.0, 18.0, main, master]
-    settings:
-      host:
-        - 172.30.1.XX
-      username:
-        from_secret: ssh_username
-      password:
-        from_secret: ssh_password
-      port: 22
-      command_timeout: 10m
-      script:
-        - ./image_update/<name>.sh
+#  - name: image_update Test Server
+#    image: appleboy/drone-ssh
+#    when:
+#      branch:
+#        exclude: [16.0, 17.0, 18.0, main, master]
+#    settings:
+#      host:
+#        - 172.30.1.XX
+#      username:
+#        from_secret: ssh_username
+#      key:
+#        from_secret: ssh_private_key
+#      port: 22
+#      command_timeout: 10m
+#      script:
+#        - ./image_update/maxmara.sh
 
   - name: post-build Discord Notification
     image: appleboy/drone-discord
@@ -162,4 +162,5 @@ steps:
 
         📝 **Commit:** {{commit.message}}
         
+                                       _ MAXMARA _        
         _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 

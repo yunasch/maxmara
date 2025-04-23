@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Max Mara Importation",
+    'name': "Max Mara Import",
 
     'summary': """
-        Max Mara Importation
+        Max Mara Import
     """,
 
     'description': """
-        Max Mara Importation
+        Max Mara Import
         
     """,
 
-    'author': "BDR Informática y Comunicaciones S.L.",
+    'author': "BDR Informática y Comunicaciones, S.L.",
     'website': "https://www.bdrinformatica.com",
 
 
