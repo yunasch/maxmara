@@ -31,7 +31,7 @@ class IrAttachmentWizard(models.TransientModel):
 
         try:
             if self.filename and self.filename.lower().endswith('.xls'):
-                df = pd.read_excel(excel_file, sheet_name=0, engine=None, header=1) # Se lee a partir de la fila 1
+                df = pd.read_excel(excel_file, sheet_name=0, engine="xlrd", header=1) # Se lee a partir de la fila 1
             else:
                 excel_file.seek(0)
                 df = pd.read_csv(excel_file, header=1) # Se lee a partir de la fila 1
