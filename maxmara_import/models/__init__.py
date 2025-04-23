@@ -1,0 +1,1 @@
+from . import product_product, ir_attachment
