@@ -1,0 +1,109 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* maxmara_importation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e-20250106\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-15 09:42+0000\n"
+"PO-Revision-Date: 2025-05-15 09:42+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: maxmara_importation
+#. odoo-python
+#: code:addons/maxmara_importation/models/product_product.py:0
+#: model:ir.actions.act_window,name:maxmara_importation.action_ir_attachment_wizard
+#: model_terms:ir.ui.view,arch_db:maxmara_importation.ir_attachment_wizard_form
+#, python-format
+msgid "Adjuntar Archivo"
+msgstr "Adjuntar Fitxer"
+
+#. module: maxmara_importation
+#: model:ir.model.fields,field_description:maxmara_importation.field_ir_attachment_wizard__attachment
+msgid "Archivo"
+msgstr "Fitxer"
+
+#. module: maxmara_importation
+#: model_terms:ir.ui.view,arch_db:maxmara_importation.ir_attachment_wizard_form
+msgid "Cancelar"
+msgstr "Cancel·lar"
+
+#. module: maxmara_importation
+#: model:ir.model.fields,field_description:maxmara_importation.field_ir_attachment_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: maxmara_importation
+#: model:ir.model.fields,field_description:maxmara_importation.field_ir_attachment_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: maxmara_importation
+#. odoo-python
+#: code:addons/maxmara_importation/models/ir_attachment_sku.py:0
+#, python-format
+msgid "Debe seleccionar un archivo para cargar."
+msgstr "Heu de seleccionar un fitxer per carregar."
+
+#. module: maxmara_importation
+#: model:ir.model.fields,field_description:maxmara_importation.field_ir_attachment_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: maxmara_importation
+#. odoo-python
+#: code:addons/maxmara_importation/models/ir_attachment_sku.py:0
+#, python-format
+msgid "Error al leer el archivo: %s"
+msgstr "Error llegint el fitxer: %s"
+
+#. module: maxmara_importation
+#: model:ir.model.fields,field_description:maxmara_importation.field_ir_attachment_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: maxmara_importation
+#: model:res.groups,name:maxmara_importation.group_import_sku
+msgid "Importación de productos SKU"
+msgstr "Importació de productes SKU"
+
+#. module: maxmara_importation
+#: model_terms:ir.ui.view,arch_db:maxmara_importation.view_product_template_button_inherit
+msgid "Importar Productos"
+msgstr "Importar Productes"
+
+#. module: maxmara_importation
+#: model:ir.model.fields,field_description:maxmara_importation.field_ir_attachment_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: maxmara_importation
+#: model:ir.model.fields,field_description:maxmara_importation.field_ir_attachment_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: maxmara_importation
+#: model:ir.model.fields,field_description:maxmara_importation.field_ir_attachment_wizard__filename
+msgid "Nombre del Archivo"
+msgstr ""
+
+#. module: maxmara_importation
+#: model:ir.model,name:maxmara_importation.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: maxmara_importation
+#: model_terms:ir.ui.view,arch_db:maxmara_importation.ir_attachment_wizard_form
+msgid "Subir"
+msgstr "Pujar"
+
+#. module: maxmara_importation
+#: model:ir.model,name:maxmara_importation.model_ir_attachment_wizard
+msgid "Wizard para adjuntar archivos"
+msgstr "Wizard per adjuntar fitxers"
