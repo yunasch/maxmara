@@ -22,7 +22,7 @@ RUN chown -R odoo:odoo /mnt/extra-addons
 RUN chmod -R 755 /mnt/extra-addons
 
 # Copy custom modules from repo
-COPY maxmara_import /mnt/extra-addons/maxmara_import
+COPY maxmara_importation /mnt/extra-addons/maxmara_importation
 
 # Copy odoo.conf
 COPY odoo.conf /mnt/odoo.conf
