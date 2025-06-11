@@ -1,6 +1,6 @@
-ARG ODOO_VERSION=reg.bdr.group/o-img:17.0e
+ARG ODOO_VERSION=reg.bdr.group/o-img:18.0e
 FROM ${ODOO_VERSION}
-ARG ODOO_VERSION=reg.bdr.group/o-img:17.0e
+ARG ODOO_VERSION=reg.bdr.group/o-img:18.0e
 ARG BRANCH
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 USER root
@@ -11,7 +11,7 @@ ENV BRANCH=${BRANCH}
 ENV SSH_DIR=/root/.ssh
 ENV BASE_DIR="BDR"
 
-RUN if [ "$ODOO_VERSION" = "odoo:17" ]; then \
+RUN if [ "$ODOO_VERSION" = "odoo:18" ]; then \
     apt-get update -y; \
     apt-get install -y git; \
     fi
