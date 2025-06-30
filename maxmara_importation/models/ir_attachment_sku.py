@@ -42,6 +42,13 @@ class IrAttachmentWizard(models.TransientModel):
 
     def _process_product_group(self, style_code, name, group):
         """ Procesa un grupo de lineas con el mismo STYLE CODE y NAME """
+        for _, row in group.iterrows():
+            sku = str(row['SKU']).strip()
+            if sku:
+                existing = self.env['product.product'].search([('barcode', '=', sku)], limit=1)
+                if existing:
+                    return
+                
         category = self._get_or_create_category(group)
         price = float(group.iloc[0].get('PRICE', 0))
 
@@ -162,14 +169,6 @@ class IrAttachmentWizard(models.TransientModel):
                 ('product_template_attribute_value_ids.attribute_id.name', '=', 'COLOR'),
                 ('product_template_attribute_value_ids.name', '=', color),
             ], limit=1)
-
-            existing = self.env['product.product'].search([
-                ('barcode', '=', sku),
-                ('id', '!=', variant.id if variant else 0),
-            ], limit=1)
-            
-            if existing:
-                continue
 
             if variant:
                 variant.default_code = style_code
