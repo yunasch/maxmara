@@ -163,6 +163,17 @@ class IrAttachmentWizard(models.TransientModel):
                 ('product_template_attribute_value_ids.name', '=', color),
             ], limit=1)
 
+            existing_with_barcode = self.env['product.product'].search([
+                ('barcode', '=', sku),
+                ('id', '!=', variant.id if variant else 0),
+            ], limit=1)
+            if existing_with_barcode:
+                if variant:
+                    # Solo actualizamos el precio si ya existe la variante
+                    variant.lst_price = price
+                continue  # No asignar barcode, pasa al siguiente
+
+
             if variant:
                 variant.default_code = style_code
                 variant.barcode = sku
