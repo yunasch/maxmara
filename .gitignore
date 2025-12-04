@@ -1,0 +1,19 @@
+# Ignore copiled files
+*.o
+*.exe
+
+# Ignore specific folders and files
+node_modules/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.idea/
+
+# Ignore local config files
+*.log
+.env
+/dev-odoo.conf
