@@ -9,7 +9,7 @@ class IrAttachmentWizard(models.TransientModel):
     _description = 'Wizard para adjuntar archivos'
 
     filename = fields.Char('Nombre del Archivo')
-    attachment = fields.Binary('Archivo', required=True, filename="filename")
+    attachment = fields.Binary('Archivo', required=True)
 
     def action_upload_file(self):
         """ Método principal que procesa el archivo subido """
