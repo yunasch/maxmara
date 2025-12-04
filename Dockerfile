@@ -1,74 +1,49 @@
+# ==============================
+# STAGE 1: Builder
+# ==============================
 ARG ODOO_VERSION=reg.bdr.group/o-img:18.0e
-FROM ${ODOO_VERSION}
+FROM ${ODOO_VERSION} AS builder
+
 ARG ODOO_VERSION=reg.bdr.group/o-img:18.0e
 ARG BRANCH
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 USER root
-CMD ["pkill -f odoo"]
 
-ENV ODOO_VERSION=${ODOO_VERSION}
-ENV BRANCH=${BRANCH}
-ENV SSH_DIR=/root/.ssh
-ENV BASE_DIR="BDR"
-
-RUN if [ "$ODOO_VERSION" = "odoo:18" ]; then \
-    apt-get update -y; \
-    apt-get install -y git; \
-    fi
-
-RUN pip3 install pandas xlrd==2.0.1 openpyxl
-
-RUN chown -R odoo:odoo /mnt/extra-addons
-RUN chmod -R 755 /mnt/extra-addons
-
-# Copy custom modules from repo
-COPY maxmara_importation /mnt/extra-addons/maxmara_importation
+# Set environment variables
+ENV ODOO_VERSION=${ODOO_VERSION} \
+    BRANCH=${BRANCH} \
+    MAIN_BRANCH=18.0
+#    SSH_DIR=/root/.ssh \
+#    BASE_DIR=/mnt/extra-addons/BDR
 
 # Copy odoo.conf
 COPY odoo.conf /mnt/odoo.conf
 COPY staging-odoo.conf /mnt/staging-odoo.conf
-RUN if [ "$BRANCH" = "<main_branch>" ]; then \
+RUN if [ "$BRANCH" = "$MAIN_BRANCH" ]; then \
     rm /mnt/staging-odoo.conf; \
     else \
     mv /mnt/staging-odoo.conf /mnt/odoo.conf; \
     fi
 
-##Copy .git folder for recursive modules
-#COPY .git /mnt/.git
-#RUN ls -la /mnt/.git
-#
-#COPY .ssh/ /root/.ssh/
-#RUN chmod 600 /root/.ssh/id_* && chmod 700 /root/.ssh
+# Copy custom modules from repo
+COPY BDR/custom /mnt/extra-addons/BDR/custom
 
-## Add Github to known host to avoid confirmation prompt and add the key(s) to the ssh-agent
-#RUN ssh-keyscan github.com >> ${SSH_DIR}/known_hosts
-#RUN eval "$(ssh-agent -s)" && \
-#    for key in /root/.ssh/id_*; do \
-#        ssh-add $key; \
-#    done \
-#    && ssh-add -l
+# ==============================
+# STAGE 2: Final Image
+# ==============================
+FROM ${ODOO_VERSION} AS final
+USER root
 
-## Set working directory
-#WORKDIR /mnt/
-
-## Dynamically update all submodules using their corresponding SSH keys only for private repos with ssh auth
-#RUN for key in $SSH_DIR/id_*; do \
-#    if [ -f "$key" ]; then \
-#        REPO=$(basename "$key" | cut -d'_' -f2-); \
-#        SUBMODULE_PATH="$BASE_DIR/$REPO"; \
-#        echo "Updating submodule: $SUBMODULE_PATH using key: $key"; \
-#        GIT_SSH_COMMAND="ssh -i $key -o StrictHostKeyChecking=no" git submodule update --init --recursive -- "$SUBMODULE_PATH"; \
-#    fi; \
-#done
-
-## Update the rest of the submodules
-#RUN git submodule update --init --recursive
-#
-## Delete .ssh folder
-#RUN rm -rf /root/.ssh/ && rm -rf ../.ssh/*
+# Copy only necessary files
+COPY --from=builder /mnt/extra-addons /mnt/extra-addons
+COPY --from=builder /mnt/odoo.conf /mnt/odoo.conf
 
 ## Install requirements
-#RUN pip3 install -r /mnt/OCA/rest-framework/requirements.txt
+#RUN find /mnt/extra-addons/OCA -type f -name "requirements.txt" -exec pip3 install -r {} \;
+RUN pip3 install --break-system-packages pandas xlrd==2.0.1 openpyxl
+
+RUN chown -R odoo:odoo /mnt/extra-addons /mnt/odoo.conf
+RUN chmod -R 755 /mnt/extra-addons /mnt/odoo.conf
 
 USER odoo
 CMD ["odoo"]
