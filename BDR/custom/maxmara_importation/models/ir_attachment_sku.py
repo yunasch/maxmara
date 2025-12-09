@@ -70,7 +70,7 @@ class IrAttachmentWizard(models.TransientModel):
                 'name': name,
                 'default_code': style_code,
                 'list_price': price,
-                'detailed_type': 'product',
+                'type': 'consu',
                 'categ_id': categ_id,
                 'available_in_pos': True
             })
