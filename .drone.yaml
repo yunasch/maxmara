@@ -5,38 +5,38 @@ platform:
   os: linux
   arch: amd64
 steps:
-#  - name: pre-build Discord Notification Production
-#    image: appleboy/drone-discord
-#    when:
-#        branch: [16.0, 17.0, 18.0, main, master]
-#    settings:
-#      webhook_id:
-#        from_secret: webhook_id
-#      webhook_token:
-#        from_secret: webhook_token
-#      message: >
-#        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-#
-#        ## 🦊 __**O18E - MaxMara**__
-#
-#        🚀 Deploying **{{commit.branch}}** branch to production...
-#
-#  - name: pre-build Discord Notification Test
-#    image: appleboy/drone-discord
-#    when:
-#        branch:
-#          exclude: [16.0, 17.0, 18.0, main, master]
-#    settings:
-#      webhook_id:
-#        from_secret: webhook_id
-#      webhook_token:
-#        from_secret: webhook_token
-#      message: >
-#        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-#
-#        ## 🦊 __**O18E - MaxMara**__
-#
-#        🔄 Deploying changes from **{{commit.branch}}** on test image...
+  - name: pre-build Discord Notification Production
+    image: appleboy/drone-discord
+    when:
+        branch: [16.0, 17.0, 18.0, main, master]
+    settings:
+      webhook_id:
+        from_secret: webhook_id
+      webhook_token:
+        from_secret: webhook_token
+      message: >
+        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+        ## 🦊 __**O18E - MaxMara**__
+
+        🚀 Deploying **{{commit.branch}}** branch to production...
+
+  - name: pre-build Discord Notification Test
+    image: appleboy/drone-discord
+    when:
+        branch:
+          exclude: [16.0, 17.0, 18.0, main, master]
+    settings:
+      webhook_id:
+        from_secret: webhook_id
+      webhook_token:
+        from_secret: webhook_token
+      message: >
+        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+        ## 🦊 __**O18E - MaxMara**__
+
+        🔄 Deploying changes from **{{commit.branch}}** on test image...
 
 #  - name: ssh-key
 #    image: alpine
@@ -50,24 +50,24 @@ steps:
 #      # Add as many as you need
 #      - echo "$${SSH_FAST_API}" | tr -d '\r' > /drone/src/.ssh/id_<module_name>
 
-#  - name: publish-o-maxmara
-#    image: plugins/docker
-#    when:
-#      branch: [16.0, 17.0, 18.0, main, master]
-#    environment:
-#      DOCKER_BUILDKIT: 1
-#    settings:
-#      registry: reg.bdr.group
-#      username:
-#        from_secret: reg_bdr_user
-#      password:
-#        from_secret: reg_bdr_password
-#      repo: reg.bdr.group/maxmara
-#      tags: 18
-#      dockerfile: Dockerfile
-#      build_args:
-##        - ODOO_VERSION=reg.bdr.group/maxmara:18
-#        - BRANCH=${DRONE_BRANCH}
+  - name: publish-o-maxmara
+    image: plugins/docker
+    when:
+      branch: [16.0, 17.0, 18.0, main, master]
+    environment:
+      DOCKER_BUILDKIT: 1
+    settings:
+      registry: reg.bdr.group
+      username:
+        from_secret: reg_bdr_user
+      password:
+        from_secret: reg_bdr_password
+      repo: reg.bdr.group/maxmara
+      tags: 18
+      dockerfile: Dockerfile
+      build_args:
+#        - ODOO_VERSION=reg.bdr.group/maxmara:18
+        - BRANCH=${DRONE_BRANCH}
 
   - name: publish-o-maxmara-test
     image: plugins/docker
@@ -122,19 +122,19 @@ steps:
 #      script:
 #        - ./image_update/maxmara.sh
 #
-#  - name: post-build Discord Notification
-#    image: appleboy/drone-discord
-#    when:
-#      status: [ success, failure, canceled, killed ]
-#    depends_on: []
-#    settings:
-#      webhook_id:
-#        from_secret: webhook_id
-#      webhook_token:
-#        from_secret: webhook_token
-#      message: >
-#        {{#success build.status}} 💿 🔼 Image update completed. {{/success}}
-#        {{#failure build.status}} ❌ 💿 Image update failed. {{/failure}}
+  - name: post-build Discord Notification
+    image: appleboy/drone-discord
+    when:
+      status: [ success, failure, canceled, killed ]
+    depends_on: []
+    settings:
+      webhook_id:
+        from_secret: webhook_id
+      webhook_token:
+        from_secret: webhook_token
+      message: >
+        {{#success build.status}} 💿 🔼 Image update completed. {{/success}}
+        {{#failure build.status}} ❌ 💿 Image update failed. {{/failure}}
 
 
   - name: post-image Discord Notification
