@@ -1,0 +1,30 @@
+postgres:
+  image:
+    repository: postgres
+    tag: "17"
+  env:
+    POSTGRES_USER: odoo
+    POSTGRES_PASSWORD: odoo
+    POSTGRES_DB: odoo
+  persistence:
+    enabled: true
+    mountPath: /var/lib/postgresql/data/pgdata
+    existingClaim: ""
+    size: 10Gi
+
+odoo:
+  image:
+    repository: reg.bdr.group/maxmara
+    tag: "18"
+  ports:
+    - name: http
+      containerPort: 8069
+    - name: longpolling
+      containerPort: 8072
+  env:
+    - name: ODOO_RC
+      value: /mnt/odoo.conf
+  persistence:
+    enabled: true
+    mountPath: /var/lib/odoo
+    size: 10Gi
