@@ -1,10 +1,10 @@
 # ==============================
 # STAGE 1: Builder
 # ==============================
-ARG ODOO_VERSION=reg.bdr.group/o-img:18.0e
+ARG ODOO_VERSION=reg.bdr.group/o-enterprise:18.0
 FROM ${ODOO_VERSION} AS builder
 
-ARG ODOO_VERSION=reg.bdr.group/o-img:18.0e
+ARG ODOO_VERSION=reg.bdr.group/o-enterprise:18.0
 ARG BRANCH
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 USER root
