@@ -24,9 +24,9 @@ odoo:
     type: ClusterIP
     port8069: 8069
     port8072: 8072
-  env:
-    - name: ODOO_RC
-      value: /mnt/odoo.conf
+#  env:
+#    - name: ODOO_RC
+#      value: /mnt/odoo.conf
 #  persistence:
 #    enabled: true
 #    mountPath: /var/lib/odoo
