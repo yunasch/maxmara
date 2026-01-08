@@ -1,7 +1,7 @@
 apiVersion: v2
-name: maxmara-stack
+name: odoo-stack
 version: 0.1.0
-description: Helm chart for Maxmara + Postgres stack
+description: Helm chart for Odoo + Postgres stack
 dependencies:
   - name: postgresql
     version: 15.5.38

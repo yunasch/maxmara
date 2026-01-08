@@ -18,7 +18,8 @@ postgresql:
         value: /bitnami/postgresql/data/pgdata
 
 odoo:
-  image: reg.bdr.group/maxmara:18
+#  image: reg.bdr.group/maxmara:18
+  image: odoo:18
   service:
     type: ClusterIP
     port8069: 8069
