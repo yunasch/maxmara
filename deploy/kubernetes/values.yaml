@@ -1,18 +1,15 @@
 postgresql:
   image:
     tag: "17"
-
   auth:
     username: odoo
     password: odoo
     database: odoo
-
   primary:
     persistence:
       enabled: true
       size: 10Gi
       storageClass: rook-cephfs
-
     extraEnvVars:
       - name: PGDATA
         value: /bitnami/postgresql/data/pgdata

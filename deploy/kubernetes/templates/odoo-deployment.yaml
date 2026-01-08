@@ -24,6 +24,13 @@ spec:
           env:
             - name: ODOO_RC
               value: /mnt/odoo.conf
+          readinessProbe:
+            httpGet:
+              path: /web/login
+              port: 8069
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 6
           volumeMounts:
             - name: odoo-data
               mountPath: /var/lib/odoo
@@ -37,3 +44,4 @@ spec:
         - name: odoo-conf
           configMap:
             name: {{ include "odoo.fullname" . }}-conf
+
