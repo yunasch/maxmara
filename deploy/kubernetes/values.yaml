@@ -26,14 +26,6 @@ odoo:
   env:
     - name: ODOO_RC
       value: /mnt/odoo.conf
-#  # You can configure odoo conf manualy here:
-#  odooConf: |
-#    [options]
-#    ; add your config here
-#    db_host = <chart-name>-postgresql
-#    db_port = 5432
-#    db_user = odoo
-#    db_password = odoo
   persistence:
     enabled: true
     mountPath: /var/lib/odoo

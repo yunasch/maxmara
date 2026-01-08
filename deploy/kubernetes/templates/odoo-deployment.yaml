@@ -36,4 +36,4 @@ spec:
             claimName: {{ .Release.Name }}-odoo-data
         - name: odoo-conf
           configMap:
-            name: {{ .Release.Name }}-odoo-conf
+            name: {{ include "odoo.fullname" . }}-conf

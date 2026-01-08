@@ -1,0 +1,6 @@
+environment: dev
+
+postgresql:
+  primary:
+    persistence:
+      size: 20Gi
