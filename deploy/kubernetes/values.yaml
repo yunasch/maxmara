@@ -9,7 +9,7 @@ postgresql:
     persistence:
       enabled: true
       size: 10Gi
-      storageClass: rook-cephfs
+      storageClass: rook-block
     extraEnvVars:
       - name: PGDATA
         value: /bitnami/postgresql/data/pgdata
