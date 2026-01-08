@@ -1,0 +1,9 @@
+dependencies:
+- name: postgres
+  repository: file://charts/postgres
+  version: 0.1.0
+- name: odoo
+  repository: file://charts/odoo
+  version: 0.1.0
+digest: sha256:adc1d58c2fe043fe743dd6b989728de4185de2193683dc458812d39fdb8afebb
+generated: "2026-01-08T15:59:10.167020831+01:00"
