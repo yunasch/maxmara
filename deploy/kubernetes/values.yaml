@@ -11,7 +11,7 @@ postgresql:
     persistence:
       enabled: true
       size: 10Gi
-      storageClass: ""
+      storageClass: rook-cephfs
 
     extraEnvVars:
       - name: PGDATA
@@ -20,6 +20,7 @@ postgresql:
 odoo:
 #  image: reg.bdr.group/maxmara:18
   image: odoo:18
+  replicas: 1
   service:
     type: ClusterIP
     port8069: 8069
@@ -35,4 +36,4 @@ odoo:
     accessModes:
       - ReadWriteOnce
     size: 20Gi
-    storageClassName: ""
+    storageClassName: rook-cephfs

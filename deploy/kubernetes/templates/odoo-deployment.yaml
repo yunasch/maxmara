@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-odoo
 spec:
-  replicas: {{ .Values.odoo.replicas }}
+  replicas: {{ default 1 .Values.odoo.replicas }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}-odoo
