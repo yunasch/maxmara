@@ -3,9 +3,6 @@ name: maxmara-stack
 version: 0.1.0
 description: Helm chart for Maxmara + Postgres stack
 dependencies:
-  - name: postgres
-    version: 0.1.0
-    repository: "file://charts/postgres"
-  - name: odoo
-    version: 0.1.0
-    repository: "file://charts/odoo"
+  - name: postgresql
+    version: 15.5.38
+    repository: "https://charts.bitnami.com/bitnami"

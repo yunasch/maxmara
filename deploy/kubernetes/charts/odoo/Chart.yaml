@@ -1,5 +1,0 @@
-apiVersion: v2
-name: odoo
-version: 0.1.0
-description: Subchart for Odoo app
-type: application

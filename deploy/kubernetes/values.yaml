@@ -1,29 +1,39 @@
-postgres:
+postgresql:
   image:
-    repository: postgres
     tag: "17"
-  env:
-    POSTGRES_USER: odoo
-    POSTGRES_PASSWORD: odoo
-    POSTGRES_DB: odoo
-  persistence:
-    enabled: true
-    mountPath: /var/lib/postgresql/data/pgdata
-    existingClaim: ""
-    size: 10Gi
+
+  auth:
+    username: odoo
+    password: odoo
+    database: odoo
+
+  primary:
+    persistence:
+      enabled: true
+      size: 10Gi
+      storageClass: ""
+
+    extraEnvVars:
+      - name: PGDATA
+        value: /bitnami/postgresql/data/pgdata
 
 odoo:
-  image:
-    repository: reg.bdr.group/maxmara
-    tag: "18"
-  ports:
-    - name: http
-      containerPort: 8069
-    - name: longpolling
-      containerPort: 8072
+  image: reg.bdr.group/maxmara:18
+  service:
+    type: ClusterIP
+    port8069: 8069
+    port8072: 8072
   env:
     - name: ODOO_RC
       value: /mnt/odoo.conf
+#  # You can configure odoo conf manualy here:
+#  odooConf: |
+#    [options]
+#    ; add your config here
+#    db_host = <chart-name>-postgresql
+#    db_port = 5432
+#    db_user = odoo
+#    db_password = odoo
   persistence:
     enabled: true
     mountPath: /var/lib/odoo

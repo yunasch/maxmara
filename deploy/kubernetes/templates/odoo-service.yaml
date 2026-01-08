@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-odoo
+spec:
+  type: {{ .Values.odoo.service.type }}
+  selector:
+    app: {{ .Release.Name }}-odoo
+  ports:
+    - name: http
+      port: {{ .Values.odoo.service.port8069 }}
+      targetPort: 8069
+    - name: longpoll
+      port: {{ .Values.odoo.service.port8072 }}
+      targetPort: 8072
