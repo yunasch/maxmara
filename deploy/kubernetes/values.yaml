@@ -11,7 +11,7 @@ postgresql:
     persistence:
       enabled: true
       size: 10Gi
-      storageClassName: rook-cephfs
+      storageClass: rook-cephfs
 
     extraEnvVars:
       - name: PGDATA
