@@ -3,7 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ .Release.Name }}-odoo-data
 spec:
-  accessModes: {{ toYaml .Values.odoo.persistence.accessModes | nindent 2 }}
+  accessModes:
+{{ toYaml .Values.odoo.persistence.accessModes | nindent 4 }}
   resources:
     requests:
       storage: {{ .Values.odoo.persistence.size | quote }}

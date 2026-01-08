@@ -26,7 +26,12 @@ odoo:
   env:
     - name: ODOO_RC
       value: /mnt/odoo.conf
+#  persistence:
+#    enabled: true
+#    mountPath: /var/lib/odoo
+#    size: 10Gi
   persistence:
-    enabled: true
-    mountPath: /var/lib/odoo
-    size: 10Gi
+    accessModes:
+      - ReadWriteOnce
+    size: 20Gi
+    storageClassName: ""
