@@ -18,7 +18,7 @@ postgresql:
 
 odoo:
 #  image: reg.bdr.group/maxmara:18
-  image: odoo:18
+  image: odoo:18.0
   replicas: 1
   service:
     type: ClusterIP
