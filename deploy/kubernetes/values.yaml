@@ -1,5 +1,6 @@
 postgresql:
-  image: postgres:17
+  image:
+    tag: "17"
   auth:
     username: odoo
     password: odoo
@@ -8,7 +9,7 @@ postgresql:
     persistence:
       enabled: true
       size: 1Gi
-      storageClass: rook-cephfs
+#      storageClass: rook-cephfs
       accessModes:
         - ReadWriteOnce
     extraEnvVars:
