@@ -10,6 +10,8 @@ postgresql:
       enabled: true
       size: 1Gi
       storageClass: rook-cephfs
+      accessModes:
+        - ReadWriteOnce
     extraEnvVars:
       - name: PGDATA
         value: /bitnami/postgresql/data/pgdata
