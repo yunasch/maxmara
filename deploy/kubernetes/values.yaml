@@ -8,8 +8,8 @@ postgresql:
   primary:
     persistence:
       enabled: true
-      size: 10Gi
-      storageClass: rook-block
+      size: 1Gi
+      storageClass: rook-cephfs
     extraEnvVars:
       - name: PGDATA
         value: /bitnami/postgresql/data/pgdata
@@ -32,5 +32,5 @@ odoo:
   persistence:
     accessModes:
       - ReadWriteOnce
-    size: 20Gi
+    size: 1Gi
     storageClassName: rook-cephfs
