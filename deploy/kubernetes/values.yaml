@@ -1,6 +1,6 @@
 postgresql:
-  image:
-    tag: "17.6.0-debian-12-rX"
+#  image:
+#    tag:
   auth:
     username: odoo
     password: odoo
