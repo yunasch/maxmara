@@ -1,6 +1,6 @@
 postgresql:
-#  image:
-#    tag:
+  image:
+    tag: latest
   auth:
     username: odoo
     password: odoo
