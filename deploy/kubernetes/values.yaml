@@ -1,38 +1,52 @@
-postgresql:
-  image:
-    tag: "17"
-  auth:
-    username: odoo
-    password: odoo
-    database: odoo
-  primary:
-    persistence:
-      enabled: true
-      size: 1Gi
-#      storageClass: rook-cephfs
-      accessModes:
-        - ReadWriteOnce
-    extraEnvVars:
-      - name: PGDATA
-        value: /bitnami/postgresql/data/pgdata
-
 odoo:
-#  image: reg.bdr.group/maxmara:18
   image: odoo:18.0
   replicas: 1
   service:
     type: ClusterIP
-    port8069: 8069
-    port8072: 8072
-#  env:
-#    - name: ODOO_RC
-#      value: /mnt/odoo.conf
-#  persistence:
+    port: 8069
+    longpollPort: 8072
+#  ingress:
 #    enabled: true
-#    mountPath: /var/lib/odoo
-#    size: 10Gi
+#    className: nginx
+#    host: odoo.example.com
+#    tls: true
+#    tlsSecretName: odoo-tls
   persistence:
-    accessModes:
-      - ReadWriteOnce
-    size: 1Gi
+    enabled: true
     storageClassName: rook-cephfs
+    size: 10Gi
+    accessModes: ["ReadWriteOnce"]
+    mountPath: /var/lib/odoo
+  extraAddons:
+    enabled: true
+    # If you mount extra addons via PVC/CSI/NFS etc.
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: "2"
+      memory: 2Gi
+
+postgres:
+  image: postgres:17
+  service:
+    port: 5432
+  persistence:
+    enabled: true
+    storageClassName: rook-cephfs
+    size: 10Gi
+    accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: "2"
+      memory: 2Gi
+
+db:
+  name: odoo
+  user: odoo
+  # Testing purposes
+  password: "odoo"

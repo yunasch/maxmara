@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo
+spec:
+  replicas: {{ .Values.odoo.replicas }}
+  selector:
+    matchLabels:
+      app: odoo
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec:
+      containers:
+        - name: odoo
+          image: {{ .Values.odoo.image | quote }}
+          ports:
+            - containerPort: 8069
+            - containerPort: 8072
+          env:
+            - name: HOST
+              value: "postgres"
+            - name: PORT
+              value: "{{ .Values.postgres.service.port }}"
+            - name: USER
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-db
+                  key: POSTGRES_USER
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-db
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            {{- if .Values.odoo.persistence.enabled }}
+            - name: odoo-data
+              mountPath: {{ .Values.odoo.persistence.mountPath | quote }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.odoo.resources | nindent 12 }}
+      volumes:
+        {{- if .Values.odoo.persistence.enabled }}
+        - name: odoo-data
+          persistentVolumeClaim:
+            claimName: odoo-data
+        {{- end }}
+---
+{{- if .Values.odoo.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: odoo-data
+spec:
+  accessModes: {{ toYaml .Values.odoo.persistence.accessModes | nindent 2 }}
+  resources:
+    requests:
+      storage: {{ .Values.odoo.persistence.size | quote }}
+  storageClassName: {{ .Values.odoo.persistence.storageClassName | quote }}
+{{- end }}

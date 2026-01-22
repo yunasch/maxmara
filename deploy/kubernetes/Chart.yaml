@@ -1,8 +1,6 @@
 apiVersion: v2
 name: odoo-stack
+description: Odoo + PostgreSQL (simple in-repo chart for Argo CD)
+type: application
 version: 0.1.0
-description: Helm chart for Odoo + Postgres stack
-dependencies:
-  - name: postgresql
-    version: 15.5.38
-    repository: "https://charts.bitnami.com/bitnami"
+appVersion: "1.0.0"
