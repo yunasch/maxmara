@@ -16,7 +16,7 @@ spec:
         - name: regcred
       containers:
         - name: odoo
-          image: reg.bdr.group/maxmara:test
+          image: reg.bdr.group/maxmara:test-18
 #          command: [ "odoo" ]
 #          args:
 #            - "--config=/mnt/odoo.conf"
