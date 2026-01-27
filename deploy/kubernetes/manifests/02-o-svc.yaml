@@ -5,11 +5,15 @@ metadata:
 spec:
   selector:
     app: odoo
+#  type: ClusterIP
+  type: NodePort
   ports:
     - name: http
       port: 8069
       targetPort: 8069
+      nodePort: 30069
     - name: longpoll
       port: 8070
       targetPort: 8072
-  type: ClusterIP
+      nodePort: 30072
+
