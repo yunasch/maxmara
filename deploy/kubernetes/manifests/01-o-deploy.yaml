@@ -12,9 +12,14 @@ spec:
       labels:
         app: odoo
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: odoo
-          image: odoo:18.0
+          image: reg.bdr.group/maxmara:test
+#          command: [ "odoo" ]
+#          args:
+#            - "--config=/mnt/odoo.conf"
           ports:
             - containerPort: 8069
             - containerPort: 8072
@@ -34,9 +39,9 @@ spec:
                   name: odoo-db
                   key: POSTGRES_PASSWORD
           volumeMounts:
-            - name: odoo-data
+            - name: odata
               mountPath: /var/lib/odoo
       volumes:
-        - name: odoo-data
+        - name: odata
           persistentVolumeClaim:
-            claimName: odoo-data
+            claimName: odata
